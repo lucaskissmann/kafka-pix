@@ -7,5 +7,5 @@ import br.com.pix.modules.pix.Pix;
 
 @Repository
 public interface PixRepository extends JpaRepository<Pix, Integer> {
-    Pix findByIdentifier(String identifier);
+	Pix findByIdentifier(String identifier);
 }

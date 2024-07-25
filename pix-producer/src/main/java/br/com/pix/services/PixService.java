@@ -21,15 +21,15 @@ public class PixService {
     private final PixRepository pixRepository;
 
     @Autowired
-    private final KafkaTemplate<String, PixDTO>  kafkaTemplate;
+    private final KafkaTemplate<String, PixDTO> kafkaTemplate;
 
     public PixDTO create(PixDTO pixDTO) {
-		pixDTO.setId(UUID.randomUUID().toString());
+		pixDTO.setIdentifier(UUID.randomUUID().toString());
         pixDTO.setTransferDate(LocalDateTime.now());
         pixDTO.setStatus(PixStatus.EM_PROCESSAMENTO);
 		
         pixRepository.save(Pix.toEntity(pixDTO));
-        kafkaTemplate.send("pix-topic", pixDTO.getId(), pixDTO);
+        kafkaTemplate.send("pix-topic", pixDTO.getIdentifier(), pixDTO);
         return pixDTO;
     }
 

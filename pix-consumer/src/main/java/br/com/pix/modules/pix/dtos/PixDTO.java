@@ -12,7 +12,7 @@ import br.com.pix.modules.pix.enums.PixStatus;
 @Setter
 @NoArgsConstructor
 public class PixDTO {
-    private Integer id;
+    private String identifier;
     private String originKey;
     private String targetKey;
     private Double value;

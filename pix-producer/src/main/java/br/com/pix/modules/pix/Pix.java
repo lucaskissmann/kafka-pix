@@ -21,6 +21,7 @@ public class Pix {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String identifier;
     private String originKey;
     private String targetKey;
     private Double value;
@@ -30,6 +31,7 @@ public class Pix {
 
     public static Pix toEntity(PixDTO pixDTO) {
         Pix pix = new Pix();
+        pix.setIdentifier(pixDTO.getIdentifier());
         pix.setTargetKey(pixDTO.getTargetKey());
         pix.setStatus(pixDTO.getStatus());
         pix.setValue(pixDTO.getValue());
