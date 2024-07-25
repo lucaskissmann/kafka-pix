@@ -7,5 +7,5 @@ import br.com.pix.modules.key.Key;
 
 @Repository
 public interface KeyRepository extends JpaRepository<Key, Integer> {
-    Key findByChave(String key);
+    Key findByKey(String key);
 }

@@ -1,4 +1,4 @@
-package br.com.pix.modules.key;
+package br.com.pix.modules.chave;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Key {
+public class Chave {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

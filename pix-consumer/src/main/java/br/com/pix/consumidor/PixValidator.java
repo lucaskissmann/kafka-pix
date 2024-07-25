@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import br.com.pix.modules.key.Key;
-import br.com.pix.modules.key.repository.KeyRepository;
+import br.com.pix.modules.chave.Chave;
+import br.com.pix.modules.chave.repository.ChaveRepository;
 import br.com.pix.modules.pix.Pix;
 import br.com.pix.modules.pix.dtos.PixDTO;
 import br.com.pix.modules.pix.enums.PixStatus;
@@ -15,19 +15,19 @@ import br.com.pix.modules.pix.repository.PixRepository;
 public class PixValidator {
 
     @Autowired
-    private KeyRepository keyRepository;
+    private ChaveRepository chaveRepository;
 
     @Autowired
     private PixRepository pixRepository;
 
     @KafkaListener(topics = "pix-topic", groupId = "grupo")
     public void processaPix(PixDTO pixDTO) {
-        System.out.println("Pix  recebido: " + pixDTO.getId());
+        System.out.println("Pix  recebido: " + pixDTO.getIdentifier());
 
-        Pix pix = pixRepository.findById(pixDTO.getId()).get();
+        Pix pix = pixRepository.findByIdentifier(pixDTO.getIdentifier());
 
-        Key origem = keyRepository.findByChave(pixDTO.getOriginKey());
-        Key destino = keyRepository.findByChave(pixDTO.getTargetKey());
+        Chave origem = chaveRepository.findByChave(pixDTO.getOriginKey());
+        Chave destino = chaveRepository.findByChave(pixDTO.getTargetKey());
 
         if (origem == null || destino == null) {
             pix.setStatus(PixStatus.ERRO);

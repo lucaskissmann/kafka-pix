@@ -1,5 +1,6 @@
-package br.com.pix.modules.key;
+package br.com.pix.modules.chave;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,9 +11,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Key {
+public class Chave {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String key;
+
+    @Column
+    private String chave;
 }
