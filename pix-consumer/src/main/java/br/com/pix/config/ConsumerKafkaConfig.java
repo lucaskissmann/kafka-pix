@@ -24,7 +24,7 @@ public class ConsumerKafkaConfig {
     private String bootstrapAddress;
 
     @Bean
-    public ProducerFactory<String, PixDTO> producerFactory() {
+    public ProducerFactory<String, PixDTO> producerFactory() { //Método para gerenciar as retentativas do kafka 
         Map<String, Object> configProps = new HashMap<>();
         
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
@@ -47,6 +47,9 @@ public class ConsumerKafkaConfig {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100);
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, true); //cria tópicos de acordo com a aplicação, ideal para a primeira execução porém em aplicações reais é recomendado setar false
         
         return new DefaultKafkaConsumerFactory<>(props);
     }
