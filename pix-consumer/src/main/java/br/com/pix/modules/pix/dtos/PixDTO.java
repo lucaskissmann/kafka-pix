@@ -1,11 +1,12 @@
 package br.com.pix.modules.pix.dtos;
 
-import java.time.LocalDateTime;
-
-import br.com.pix.modules.pix.enums.PixStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+import br.com.pix.modules.pix.enums.PixStatus;
 
 @Getter
 @Setter

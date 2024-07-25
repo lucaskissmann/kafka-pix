@@ -1,7 +1,7 @@
 package br.com.pix.modules.pix;
 
-import java.time.LocalDateTime;
-
+import lombok.Getter;
+import lombok.Setter;
 import br.com.pix.modules.pix.dtos.PixDTO;
 import br.com.pix.modules.pix.enums.PixStatus;
 import jakarta.persistence.Entity;
@@ -10,8 +10,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
