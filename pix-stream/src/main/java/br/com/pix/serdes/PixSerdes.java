@@ -5,7 +5,7 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import br.com.pix.dto.PixDTO;
+import br.com.pix.modules.pix.dtos.PixDTO;
 
 public class PixSerdes extends Serdes.WrapperSerde<PixDTO> {
 
