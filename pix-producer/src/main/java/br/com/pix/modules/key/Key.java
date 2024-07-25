@@ -14,5 +14,5 @@ public class Key {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String chave;
+    private String key;
 }
