@@ -2,8 +2,11 @@ package br.com.pix.consumidor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Service;
 
+import br.com.pix.exception.KeyNotFoundException;
 import br.com.pix.modules.chave.Chave;
 import br.com.pix.modules.chave.repository.ChaveRepository;
 import br.com.pix.modules.pix.Pix;
@@ -20,7 +23,13 @@ public class PixValidator {
     @Autowired
     private PixRepository pixRepository;
 
-    @KafkaListener(topics = "pix-topic", groupId = "grupo")
+    @RetryableTopic(
+        backoff = @Backoff(value = 3000L),
+        attempts = "5",
+        autoCreateTopics = "true",
+        include = KeyNotFoundException.class 
+    )
+    @KafkaListener(topics = "pix-topic", groupId = "grupo-1")
     public void processaPix(PixDTO pixDTO) {
         System.out.println("Pix  recebido: " + pixDTO.getIdentifier());
 
@@ -31,9 +40,11 @@ public class PixValidator {
 
         if (origem == null || destino == null) {
             pix.setStatus(PixStatus.ERRO);
+            throw new KeyNotFoundException();
         } else {
             pix.setStatus(PixStatus.PROCESSADO);
         }
+        
         pixRepository.save(pix);
     }
 
